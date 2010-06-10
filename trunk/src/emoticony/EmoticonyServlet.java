@@ -30,7 +30,7 @@ public class EmoticonyServlet extends AbstractRobotServlet {
 	
 	//Special Occasion Emoticons
 	public static boolean HALLOWEEN = false;
-	public static boolean CHRISTMAS = true;
+	public static boolean CHRISTMAS = false;
 	public static boolean EASTER = false;
 
 	@Override
