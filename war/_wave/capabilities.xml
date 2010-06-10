@@ -3,5 +3,5 @@
   <w:capabilities>
     <w:capability name="blip_submitted"/> 
   </w:capabilities>
-  <w:version>0.8.5</w:version>
+  <w:version>0.9.7</w:version>
 </w:robot>
