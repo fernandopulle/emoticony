@@ -1,0 +1,21 @@
+<extension
+    name="Emoticony"
+    thumbnailUrl="http://emoticonbot.appspot.com/imgs/emoticony_installer.png"
+    description="Emoticony allows you to add emoticons to any of your waves."
+    infoUrl="http://emoticony.leestone.co.uk">
+  <version>1</version>
+  <author name="Lee Stone"
+  email ="leedstone@gmail.com"/> 
+  <menuHook location="newwavemenu" text="Create a wave with Emoticons" 
+      iconUrl="http://emoticonbot.appspot.com/imgs/emoticony_toolbar.png">
+      <createNewWave>
+        <participant id="emoticonbot@appspot.com" />
+      </createNewWave>
+  </menuHook>
+  <menuHook location="toolbar" text="Add Emoticony for added Emoticons!" 
+      iconUrl="http://emoticonbot.appspot.com/imgs/emoticony_toolbar.png">
+      <addParticipants>
+        <participant id="emoticonbot@appspot.com" />
+      </addParticipants>
+  </menuHook>
+</extension>
