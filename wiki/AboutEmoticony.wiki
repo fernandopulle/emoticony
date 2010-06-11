@@ -1,4 +1,5 @@
 #summary About Emoticony, the Google Wave Robot
+#labels Featured
 
 == Introduction ==
 Emoticony is a Google Wave robot which replaces text characters with images.
