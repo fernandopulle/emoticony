@@ -21,7 +21,7 @@ public class Emoticons {
 		/*
 		 * Special Occasion - Halloween
 		 */
-		if (EmoticonyServlet.HALLOWEEN == true){
+		if (Commons.HALLOWEEN == true){
 			iconList.add(new Emoticon("(bat)",extendHalUrl("bat")));
 			iconList.add(new Emoticon("(pumpkin)",extendHalUrl("pumpkin2")));
 			iconList.add(new Emoticon("(witch)",extendHalUrl("witch")));
@@ -33,7 +33,7 @@ public class Emoticons {
 		 * Special Occasion - Christmas
 		 */
 		//TODO Problems with emoticons containing :)
-		if (EmoticonyServlet.CHRISTMAS == true){
+		if (Commons.CHRISTMAS == true){
 			iconList.add(new Emoticon("(cc)",extendXmasUrl("candycane")));
 			iconList.add(new Emoticon("(cc2)",extendXmasUrl("cc2")));
 			iconList.add(new Emoticon("(candle)",extendXmasUrl("christmascandle")));

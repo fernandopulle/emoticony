@@ -21,29 +21,28 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 public class EmoticonyServlet extends AbstractRobot {
-	//Log for testing purposes
-	@SuppressWarnings("unused")
-	private static final Logger log = Logger.getLogger(EmoticonyServlet.class.getName());
-	//This list contains all the emoticons defined
+	/** Log */
+	private static final Logger log = Logger.getLogger(EmoticonyServlet.class.getName());	
+	/** Holds all the emoticons */
 	Emoticons emoticons = new Emoticons();
-	
-	
-	//Special Occasion Emoticons
-	public static boolean HALLOWEEN = false;
-	public static boolean CHRISTMAS = false;
-	public static boolean EASTER = false;
 		
 	@Override
 	public void onDocumentChanged(DocumentChangedEvent event) {
-		//log.info("Document changed");
+		if(Commons.DEBUG){
+			log.info("Document changed event");
+		}
 		Blip blip = event.getBlip();
-		//log.info("Blip Content: " + blip.getContent());
+		if(Commons.DEBUG){
+			log.info("Blip Content: " + blip.getContent());
+		}
 		try{
 			//Do nothing if marked with ne (no emoticony)
 			if(!(blip.getContent().startsWith("\n[ne]") | 
 					blip.getContent().startsWith("\n[NE]"))){
 				
-				//log.info("process blip");
+				if(Commons.DEBUG){
+					log.info("Blip isn't a non emoticony blip");
+				}
 				
 				//Default action - Process text and insert the emoticons
 				processEmoticon(blip);
@@ -53,45 +52,14 @@ public class EmoticonyServlet extends AbstractRobot {
 		}
 		
 	}
-	/*
-	@Override
-	public void processEvents(RobotMessageBundle bundle) {
-
-		for (Event e: bundle.getEvents()) {
-			//TODO later version will go back and put emoticons in all previously submitted blips.
-			if(e.getType() ==EventType.WAVELET_SELF_ADDED){
-				//Nothing for now 
-			}
-
-			//Actions take place when blip is submitted
-			if (e.getType() == EventType.BLIP_SUBMITTED) {						
-				Blip blip = e.getBlip();
-				
-				//Only process standard blips (i.e. not title blip)
-				if (blip.getBlipId().equals(blip.getWavelet().getRootBlipId()) == false){
-					
-					//log.info("Blip contents: " + blip.getDocument().getText());
-					
-					//Check if the blip starts with [ne] - the instruction to ignore blip
-					if(!(blip.getDocument().getText().startsWith("[ne]") | 
-							blip.getDocument().getText().startsWith("[NE]"))){
-						
-						//log.info("process blip");
-						
-						//Default action - Process text and insert the emoticons
-						processEmoticon(blip);
-					}				
-				}		
-			}
-		}				
-	}
-
-	/*
-	 * General running of the program (i.e puts in the emoticons)
-	 */
 	
+	/**
+	 * Handles detecting which emoticons are required and inserts them
+	 */
 	private void processEmoticon(Blip blip){
-		log.info("process blip");
+		if(Commons.DEBUG){
+			log.info("processEmoticon function");
+		}
 		String blipContent = blip.getContent();					//content of the blip
 		List<EmoticonEntry> posn = new ArrayList<EmoticonEntry>();	//List of positions
 
@@ -111,15 +79,16 @@ public class EmoticonyServlet extends AbstractRobot {
 
 		//Insert the emoticons into the blip
 		for (EmoticonEntry entry : posn){
-			//doc.delete(new Range(entry.getStartPos(), 
-					//(entry.getStartPos() +entry.getEmoticon().getTxtLen())));
 			//Delete Text Characters
 			blip.range(entry.getStartPos(), entry.getStartPos() +entry.getEmoticon().getTxtLen()).delete();
+			
 			Element img = new Image();
 			img.setProperty("url", entry.getEmoticon().getUrl());
-			log.info("insert image");
+			if(Commons.DEBUG){
+				log.info("insert image: " + entry.getEmoticon().getUrl());
+			}
+			//Insert Image
 			blip.at(entry.getStartPos()).insert(img);
-			//doc.insertElement(entry.getStartPos(), img);	//Add Image
 			
 			
 		}
@@ -133,7 +102,6 @@ public class EmoticonyServlet extends AbstractRobot {
 
 	@Override
 	public String getRobotName() {
-		log.info("calling new robot");
 		return "Emoticony";
 	}
 
