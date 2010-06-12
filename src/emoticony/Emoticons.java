@@ -35,9 +35,10 @@ public class Emoticons {
 
 	/**
 	 * This is called and adds all the Emoticons to the list.
-	 * 
-	 * The following should be called to add an Emoticon:
+	 * <p>
+	 * The following should be called to add an Emoticon:<br/>
 	 * iconList.add(new Emoticon("",extendUrl("")));
+	 * </p>
 	 * 
 	 */
 	public Emoticons() {
@@ -152,7 +153,7 @@ public class Emoticons {
 	/**
 	 * When given the filename of the image, it adds the rest of the URL
 	 * @param fname The filename of the image
-	 * @return URL The full URL for the image
+	 * @return String - The full URL for the image
 	 */
 	public String extendUrl(String fname){
 		return "http://emoticonbot.appspot.com/emoticons/".concat(fname).concat(".png");
@@ -162,7 +163,7 @@ public class Emoticons {
 	 * Used for Halloween Emoticons
 	 * When given the filename of the image, it adds the rest of the URL.
 	 * @param fname The filename of the image
-	 * @return URL The full URL for the image
+	 * @return String - The full URL for the image
 	 */
 	public String extendHalUrl(String fname){
 		return "http://emoticonbot.appspot.com/emoticons/halloween/".concat(fname).concat(".gif");
@@ -172,7 +173,7 @@ public class Emoticons {
 	 * Used for Christmas Emoticons
 	 * When given the filename of the image, it adds the rest of the URL
 	 * @param fname The filename of the image
-	 * @return URL The full URL for the image
+	 * @return String - The full URL for the image
 	 */
 	public String extendXmasUrl(String fname){
 		return "http://emoticonbot.appspot.com/emoticons/christmas/".concat(fname).concat(".gif");
