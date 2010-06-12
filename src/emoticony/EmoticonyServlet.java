@@ -10,7 +10,7 @@
  */
 package emoticony;
 import com.google.wave.api.*;
-import com.google.wave.api.impl.BlipData;
+import com.google.wave.api.event.*;
 
 import java.util.logging.Logger;
 import emoticony.Emoticons; //List of Emoticons
@@ -32,74 +32,14 @@ public class EmoticonyServlet extends AbstractRobot {
 	public static boolean HALLOWEEN = false;
 	public static boolean CHRISTMAS = false;
 	public static boolean EASTER = false;
-
-	@Override
-	public void processEvents(RobotMessageBundle bundle) {
-
-		for (Event e: bundle.getEvents()) {
-			//TODO later version will go back and put emoticons in all previously submitted blips.
-			if(e.getType() ==EventType.WAVELET_SELF_ADDED){
-				//Nothing for now 
-			}
-
-			//Actions take place when blip is submitted
-			if (e.getType() == EventType.BLIP_SUBMITTED) {						
-				Blip blip = e.getBlip();
-				
-				//Only process standard blips (i.e. not title blip)
-				if (blip.getBlipId().equals(blip.getWavelet().getRootBlipId()) == false){
-					
-					//log.info("Blip contents: " + blip.getDocument().getText());
-					
-					//Check if the blip starts with [ne] - the instruction to ignore blip
-					if(!(blip.getDocument().getText().startsWith("[ne]") | 
-							blip.getDocument().getText().startsWith("[NE]"))){
-						
-						//log.info("process blip");
-						
-						//Default action - Process text and insert the emoticons
-						processEmoticon(blip);
-					}				
-				}		
-			}
-		}				
-	}
-
-	/*
-	 * General running of the program (i.e puts in the emoticons)
-	 */
-	private void processEmoticon(Blip blip){
 		
-		TextView doc = blip.getDocument();
-		String blipContent = doc.getText();						//content of the blip
-		List<EmoticonEntry> posn = new ArrayList<EmoticonEntry>();	//List of positions
-
-		//Locate every Emoticon replacement
-		for(Emoticon icon : emoticons.iconList){
-			int i=0;
-			while (blipContent.indexOf(icon.getTxt(), i) != -1){				
-				i = blipContent.indexOf(icon.getTxt(), i);	//Update to the position
-				posn.add(new EmoticonEntry(i, icon));		//Add entry to list
-				i++;										//Increment to move on
-			}
-		}	
-
-		//Organise the list of entries so deletes etc. don't override each other
-		Collections.sort(posn);
-		Collections.reverse(posn);
-
-		//Insert the emoticons into the blip
-		for (EmoticonEntry entry : posn){
-			doc.delete(new Range(entry.getStartPos(), 
-					(entry.getStartPos() +entry.getEmoticon().getTxtLen())));
-															//Delete Text Characters
-			Element img = new Image();
-			img.setProperty("url", entry.getEmoticon().getUrl());
-			doc.insertElement(entry.getStartPos(), img);	//Add Image
-			
-			
-		}
+	@Override
+	public void onDocumentChanged(DocumentChangedEvent event) {
+		log.info("Document changed");
 	}
+
+
+
 
 	@Override
 	public String getRobotAvatarUrl() {
@@ -108,6 +48,7 @@ public class EmoticonyServlet extends AbstractRobot {
 
 	@Override
 	public String getRobotName() {
+		log.info("calling new robot");
 		return "Emoticony";
 	}
 
