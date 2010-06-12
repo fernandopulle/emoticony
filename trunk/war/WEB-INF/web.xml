@@ -10,14 +10,6 @@ http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>Emoticony</servlet-name>
-		<url-pattern>/_wave/robot/jsonrpc</url-pattern>
-	</servlet-mapping>
-	<servlet>
-		<servlet-name>profile</servlet-name>
-		<servlet-class>emoticony.EmoticonyProfileServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>profile</servlet-name>
-		<url-pattern>/_wave/robot/profile</url-pattern>
+		<url-pattern>/_wave/*</url-pattern>
 	</servlet-mapping>
 </web-app>
