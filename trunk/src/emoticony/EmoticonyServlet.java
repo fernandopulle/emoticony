@@ -20,7 +20,7 @@ import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("serial")
-public class EmoticonyServlet extends AbstractRobotServlet {
+public class EmoticonyServlet extends AbstractRobot {
 	//Log for testing purposes
 	@SuppressWarnings("unused")
 	private static final Logger log = Logger.getLogger(EmoticonyServlet.class.getName());
@@ -100,4 +100,20 @@ public class EmoticonyServlet extends AbstractRobotServlet {
 			
 		}
 	}
+
+	@Override
+	public String getRobotAvatarUrl() {
+		return "http://emoticonbot.appspot.com/imgs/EmoticonyProfileImg.png";
+	}
+
+	@Override
+	public String getRobotName() {
+		return "Emoticony";
+	}
+
+	@Override
+	public String getRobotProfilePageUrl() {
+		return "http://emoticony.leestone.co.uk";
+	}
+
 }
