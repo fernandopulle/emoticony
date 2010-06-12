@@ -37,21 +37,24 @@ import java.util.List;
  *
  */
 public class EmoticonyServlet extends AbstractRobot {
-	/** Log */
+	/** Used for logging */
 	private static final Logger log = Logger.getLogger(EmoticonyServlet.class.getName());	
 	/** Holds all the emoticons */
 	Emoticons emoticons = new Emoticons();
-		
+	/** Regular expression to be used as a filter for onDocumentChanged */
+	private static final String FILTER = ":\\)|:-\\)|\\=\\)|:D|:-D|:\\(|\\=\\(|:-\\(|:'\\(|:p|:P|:-p|:-P|:o|8-0|\\=8-0|:\\@|:s|:S|;\\)|;-\\)|\\+o\\(|:\\$|:\\||:-\\#|\\|-\\)|8-\\)|:\\\\|:-\\\\|\\*-\\)|:--\\)|\\(lying\\)|8-\\||8o\\||\\(A\\)|\\(bye\\)|\\(clap\\)|\\(\\{\\)|\\(\\}\\)|&amp;lt;:o\\)|\\(h5\\)|\\(hi5\\)|:-\\*|:\\*|\\(L\\)|&amp;lt;3|\\(U\\)|\\(tv\\)|\\(TV\\)|\\(mail\\)|\\(brb\\)|\\(P\\)|\\(pi\\)|\\(st\\)|\\(rain\\)|\\(C\\)|\\(comp\\)|\\(D\\)|\\(B\\)|\\(\\@\\)|\\(&amp;\\)|\\(\\#\\)|\\(\\*\\)|\\(Y\\)|\\(N\\)|\\(O\\)|\\(G\\)|\\(mp\\)|\\(8\\)|\\(Z\\)|\\(X\\)|\\(^\\)|\\(au\\)|\\(car\\)";
+
+	@Capability(filter = FILTER, contexts = {Context.SELF})
 	@Override
 	public void onDocumentChanged(DocumentChangedEvent event) {
 		if(Commons.DEBUG){
 			log.info("Document changed event");
 		}
-		Blip blip = event.getBlip();
-		if(Commons.DEBUG){
-			log.info("Blip Content: " + blip.getContent());
-		}
 		try{
+			Blip blip = event.getBlip();
+			if(Commons.DEBUG){
+				log.info("Blip Content: " + blip.getContent());
+			}
 			//Do nothing if marked with ne (no emoticony)
 			if(!(blip.getContent().startsWith("\n[ne]") | 
 					blip.getContent().startsWith("\n[NE]"))){
@@ -76,7 +79,7 @@ public class EmoticonyServlet extends AbstractRobot {
 		if(Commons.DEBUG){
 			log.info("processEmoticon function");
 		}
-		String blipContent = blip.getContent();					//content of the blip
+		String blipContent = blip.getContent();						//content of the blip
 		List<EmoticonEntry> posn = new ArrayList<EmoticonEntry>();	//List of positions
 
 		//Locate every Emoticon replacement
@@ -95,8 +98,7 @@ public class EmoticonyServlet extends AbstractRobot {
 
 		//Insert the emoticons into the blip
 		for (EmoticonEntry entry : posn){
-			//Delete Text Characters
-			blip.range(entry.getStartPos(), entry.getStartPos() +entry.getEmoticon().getTxtLen()).delete();
+			
 			
 			Element img = new Image();
 			img.setProperty("url", entry.getEmoticon().getUrl());
@@ -106,10 +108,13 @@ public class EmoticonyServlet extends AbstractRobot {
 			//Insert Image
 			blip.at(entry.getStartPos()).insert(img);
 			
+			//Delete Text Characters
+			blip.range(entry.getStartPos() +1, entry.getStartPos() +1 +entry.getEmoticon().getTxtLen()).delete();
+			
 			
 		}
 	}
-
+	
 	//Profile Related
 	@Override
 	public String getRobotAvatarUrl() {
@@ -124,6 +129,14 @@ public class EmoticonyServlet extends AbstractRobot {
 	@Override
 	public String getRobotProfilePageUrl() {
 		return "http://emoticony.leestone.co.uk";
+	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public static final Emoticons getStaticEmoticons(){
+		return new Emoticons();
 	}
 
 }
