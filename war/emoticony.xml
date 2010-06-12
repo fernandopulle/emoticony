@@ -3,7 +3,7 @@
     thumbnailUrl="http://emoticonbot.appspot.com/imgs/emoticony_installer.png"
     description="Emoticony allows you to add emoticons to any of your waves."
     infoUrl="http://emoticony.leestone.co.uk">
-  <version>2</version>
+  <version>1</version>
   <author name="Lee Stone"
   email ="leedstone@gmail.com"/> 
   <menuHook location="newwavemenu" text="Create a wave with Emoticons" 
