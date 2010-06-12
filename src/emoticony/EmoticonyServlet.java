@@ -35,12 +35,97 @@ public class EmoticonyServlet extends AbstractRobot {
 		
 	@Override
 	public void onDocumentChanged(DocumentChangedEvent event) {
-		log.info("Document changed");
+		//log.info("Document changed");
+		Blip blip = event.getBlip();
+		//log.info("Blip Content: " + blip.getContent());
+		try{
+			//Do nothing if marked with ne (no emoticony)
+			if(!(blip.getContent().startsWith("\n[ne]") | 
+					blip.getContent().startsWith("\n[NE]"))){
+				
+				//log.info("process blip");
+				
+				//Default action - Process text and insert the emoticons
+				processEmoticon(blip);
+			}
+		}catch (NullPointerException e){
+			log.warning("NullPointerException: " + e.getStackTrace().toString());
+		}
+		
+	}
+	/*
+	@Override
+	public void processEvents(RobotMessageBundle bundle) {
+
+		for (Event e: bundle.getEvents()) {
+			//TODO later version will go back and put emoticons in all previously submitted blips.
+			if(e.getType() ==EventType.WAVELET_SELF_ADDED){
+				//Nothing for now 
+			}
+
+			//Actions take place when blip is submitted
+			if (e.getType() == EventType.BLIP_SUBMITTED) {						
+				Blip blip = e.getBlip();
+				
+				//Only process standard blips (i.e. not title blip)
+				if (blip.getBlipId().equals(blip.getWavelet().getRootBlipId()) == false){
+					
+					//log.info("Blip contents: " + blip.getDocument().getText());
+					
+					//Check if the blip starts with [ne] - the instruction to ignore blip
+					if(!(blip.getDocument().getText().startsWith("[ne]") | 
+							blip.getDocument().getText().startsWith("[NE]"))){
+						
+						//log.info("process blip");
+						
+						//Default action - Process text and insert the emoticons
+						processEmoticon(blip);
+					}				
+				}		
+			}
+		}				
 	}
 
+	/*
+	 * General running of the program (i.e puts in the emoticons)
+	 */
+	
+	private void processEmoticon(Blip blip){
+		log.info("process blip");
+		String blipContent = blip.getContent();					//content of the blip
+		List<EmoticonEntry> posn = new ArrayList<EmoticonEntry>();	//List of positions
 
+		//Locate every Emoticon replacement
+		for(Emoticon icon : emoticons.iconList){
+			int i=0;
+			while (blipContent.indexOf(icon.getTxt(), i) != -1){				
+				i = blipContent.indexOf(icon.getTxt(), i);	//Update to the position
+				posn.add(new EmoticonEntry(i, icon));		//Add entry to list
+				i++;										//Increment to move on
+			}
+		}	
 
+		//Organise the list of entries so deletes etc. don't override each other
+		Collections.sort(posn);
+		Collections.reverse(posn);
 
+		//Insert the emoticons into the blip
+		for (EmoticonEntry entry : posn){
+			//doc.delete(new Range(entry.getStartPos(), 
+					//(entry.getStartPos() +entry.getEmoticon().getTxtLen())));
+			//Delete Text Characters
+			blip.range(entry.getStartPos(), entry.getStartPos() +entry.getEmoticon().getTxtLen()).delete();
+			Element img = new Image();
+			img.setProperty("url", entry.getEmoticon().getUrl());
+			log.info("insert image");
+			blip.at(entry.getStartPos()).insert(img);
+			//doc.insertElement(entry.getStartPos(), img);	//Add Image
+			
+			
+		}
+	}
+
+	//Profile Related
 	@Override
 	public String getRobotAvatarUrl() {
 		return "http://emoticonbot.appspot.com/imgs/EmoticonyProfileImg.png";
