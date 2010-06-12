@@ -2,6 +2,11 @@
 
 Following are the updates I've applied to Emoticony since the 'Go Live' date.
 
+== 11th June 2010 ==
+  * Emoticony not uses Version 2 of the Wave Robots API
+  * Emoticony now changes emoticons as you type
+  * Emoticony now changes emoticons in the title blip
+
 == 10th June 2010 ==
   * New version of Emoticony started
 
