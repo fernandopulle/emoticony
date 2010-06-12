@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<w:robot xmlns:w="http://wave.google.com/extensions/robots/1.0">
-	<w:protocolversion>2.0</w:protocolversion>
-  <w:capabilities>
-    <w:capability name="blip_submitted"/> 
-  </w:capabilities>
-	<w:version>3.0</w:version>
-</w:robot>
