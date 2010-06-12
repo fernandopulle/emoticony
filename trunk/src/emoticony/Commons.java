@@ -30,7 +30,7 @@ package emoticony;
 public class Commons {
 
 	/** Whether logging should be enabled */
-	public static final boolean DEBUG = true;
+	public static final boolean DEBUG = false;
 	
 	//Special Occasion Emoticons
 	/** Whether Halloween emoticons should be available */
