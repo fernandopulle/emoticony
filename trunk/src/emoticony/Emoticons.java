@@ -1,26 +1,47 @@
 /*
- * Holds all the emoticons available
+ *  Copyright 2010 Lee Stone
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *    
+ */
+/**
  * 
- * This exists purely to remove the large number of lines
- * required to create the list of emoticons from the
- * main servlet.
  */
 package emoticony;
 import java.util.ArrayList;
 
+/**
+ * Emoticons holds all of the emoticons which are available to the robot
+ * @author Lee Stone
+ * @email emoticony@leestone.co.uk
+ * @website http://www.emoticony.leestone.co.uk
+ * @date 11th June 2010
+ *
+ */
 public class Emoticons {
-	
-	//List which stores all the emoticons in
-	//Within the list it contains the string match and image url
+
+	/**The list which holds each of the Emoticon entries */
 	ArrayList<Emoticon> iconList = new ArrayList<Emoticon>();
-	
+
+	/**
+	 * This is called and adds all the Emoticons to the list.
+	 * 
+	 * The following should be called to add an Emoticon:
+	 * iconList.add(new Emoticon("",extendUrl("")));
+	 * 
+	 */
 	public Emoticons() {
-		//Every Emoticon is created and added to the list here
-		//iconList.add(new Emoticon("",extendUrl("")));
-		
-		/*
-		 * Special Occasion - Halloween
-		 */
+		//Halloween Emoticons
 		if (Commons.HALLOWEEN == true){
 			iconList.add(new Emoticon("(bat)",extendHalUrl("bat")));
 			iconList.add(new Emoticon("(pumpkin)",extendHalUrl("pumpkin2")));
@@ -28,10 +49,8 @@ public class Emoticons {
 			iconList.add(new Emoticon("(flywitch)",extendHalUrl("witching")));
 			iconList.add(new Emoticon("(witching)",extendHalUrl("witching")));
 		}
-		
-		/*
-		 * Special Occasion - Christmas
-		 */
+
+		//Christmas Emoticons
 		//TODO Problems with emoticons containing :)
 		if (Commons.CHRISTMAS == true){
 			iconList.add(new Emoticon("(cc)",extendXmasUrl("candycane")));
@@ -49,11 +68,8 @@ public class Emoticons {
 			iconList.add(new Emoticon("(stocking)",extendXmasUrl("stocking")));
 			iconList.add(new Emoticon("(tree)",extendXmasUrl("tree")));
 		}
-		
-		/*
-		 * Standard
-		 */
-		
+
+		//Standard Emoticons
 		iconList.add(new Emoticon(":)",extendUrl("smile")));
 		iconList.add(new Emoticon(":-)",extendUrl("smile")));
 		iconList.add(new Emoticon("=)",extendUrl("smile")));
@@ -88,7 +104,7 @@ public class Emoticons {
 		iconList.add(new Emoticon("(lying)",extendUrl("lying")));
 		iconList.add(new Emoticon("8-|",extendUrl("glasses-nerdy")));
 		iconList.add(new Emoticon("8o|",extendUrl("teeth")));
-		
+
 		iconList.add(new Emoticon("(A)",extendUrl("angel")));
 		iconList.add(new Emoticon("(bye)",extendUrl("bye")));
 		iconList.add(new Emoticon("(clap)",extendUrl("clap")));
@@ -99,7 +115,7 @@ public class Emoticons {
 		iconList.add(new Emoticon("(hi5)",extendUrl("highfive")));
 		iconList.add(new Emoticon(":-*",extendUrl("kiss")));
 		iconList.add(new Emoticon(":*",extendUrl("kiss")));
-		
+
 		iconList.add(new Emoticon("(L)",extendUrl("love")));
 		iconList.add(new Emoticon("<3",extendUrl("love")));
 		iconList.add(new Emoticon("(U)",extendUrl("love-over")));
@@ -130,19 +146,34 @@ public class Emoticons {
 		iconList.add(new Emoticon("(^)",extendUrl("cake")));
 		iconList.add(new Emoticon("(au)",extendUrl("car")));
 		iconList.add(new Emoticon("(car)",extendUrl("car")));
-		
+
 	}
-	
-	/*
-	 * This function adds the prefix and suffix to the filename
-	 * In future this will be adapted to deal with themed emoticons
+
+	/**
+	 * When given the filename of the image, it adds the rest of the URL
+	 * @param fname The filename of the image
+	 * @return URL The full URL for the image
 	 */
 	public String extendUrl(String fname){
 		return "http://emoticonbot.appspot.com/emoticons/".concat(fname).concat(".png");
 	}
+	
+	/**
+	 * Used for Halloween Emoticons
+	 * When given the filename of the image, it adds the rest of the URL.
+	 * @param fname The filename of the image
+	 * @return URL The full URL for the image
+	 */
 	public String extendHalUrl(String fname){
 		return "http://emoticonbot.appspot.com/emoticons/halloween/".concat(fname).concat(".gif");
 	}
+	
+	/**
+	 * Used for Christmas Emoticons
+	 * When given the filename of the image, it adds the rest of the URL
+	 * @param fname The filename of the image
+	 * @return URL The full URL for the image
+	 */
 	public String extendXmasUrl(String fname){
 		return "http://emoticonbot.appspot.com/emoticons/christmas/".concat(fname).concat(".gif");
 	}
