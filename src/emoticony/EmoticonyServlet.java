@@ -1,12 +1,18 @@
 /*
- * Emoticony
- * @author Lee Stone
- * @date 22nd August 2009
- * Contact: emoticony@leestone.co.uk
- * Web: www.emoticony.leestone.co.uk
- * 
- * Emoticony is a google wave robot which replaces text input with
- * the specified emoticon image
+ *  Copyright 2010 Lee Stone
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License");
+ *  you may not use this file except in compliance with the License.
+ *  You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software
+ *  distributed under the License is distributed on an "AS IS" BASIS,
+ *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ *  See the License for the specific language governing permissions and
+ *  limitations under the License.
+ *    
  */
 package emoticony;
 import com.google.wave.api.*;
@@ -20,6 +26,16 @@ import java.util.Collections;
 import java.util.List;
 
 @SuppressWarnings("serial")
+/**
+ * EmoticonyServlet is the main servlet for the Google Wave robot Emoticony.
+ * Emoticony replaces the text equivalent of emoticons with the relevant image.
+ * 
+ * @author Lee Stone
+ * @email emoticony@leestone.co.uk
+ * @website http://www.emoticony.leestone.co.uk
+ * @date 11th June 2010
+ *
+ */
 public class EmoticonyServlet extends AbstractRobot {
 	/** Log */
 	private static final Logger log = Logger.getLogger(EmoticonyServlet.class.getName());	
