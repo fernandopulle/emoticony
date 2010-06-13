@@ -133,13 +133,5 @@ public class EmoticonyServlet extends AbstractRobot {
 	public String getRobotProfilePageUrl() {
 		return "http://emoticony.leestone.co.uk";
 	}
-	
-	/**
-	 * 
-	 * @return
-	 */
-	public static final Emoticons getStaticEmoticons(){
-		return new Emoticons();
-	}
 
 }
