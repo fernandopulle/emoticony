@@ -109,8 +109,11 @@ public class EmoticonyServlet extends AbstractRobot {
 			blip.at(entry.getStartPos()).insert(img);
 			
 			//Delete Text Characters
-			blip.range(entry.getStartPos() +1, entry.getStartPos() +1 +entry.getEmoticon().getTxtLen()).delete();
-			
+			try{
+				blip.range(entry.getStartPos() +1, entry.getStartPos() +1 +entry.getEmoticon().getTxtLen()).delete();
+			}catch (IndexOutOfBoundsException e){
+				log.severe("IndexOutOfBoundsException: " + e.getStackTrace().toString());
+			}
 			
 		}
 	}
